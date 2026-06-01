@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verifying...</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#0a0a0a;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* HEADER (same vibe) */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 20px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  z-index:1000;
+}
+
+.logo{
+  font-weight:700;
+  font-size:1.2rem;
+}
+
+/* MAIN CENTER AREA */
+.main{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding-top:70px;
+  padding-bottom:80px;
+}
+
+/* GLOW */
+.glow{
+  position:absolute;
+  width:350px;
+  height:350px;
+  background:#00ffe0;
+  filter:blur(140px);
+  opacity:0.08;
+  border-radius:50%;
+  animation:move 8s infinite alternate ease-in-out;
+}
+
+@keyframes move{
+  from{transform:translate(-100px,-60px);}
+  to{transform:translate(100px,60px);}
+}
+
+/* CARD */
+.container{
+  width:90%;
+  max-width:380px;
+  padding:25px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  text-align:center;
+  animation:fadeIn 1s ease;
+  z-index:2;
+}
+
+/* TEXT */
+h1{
+  font-size:1.6rem;
+  margin-bottom:10px;
+}
+
+.status{
+  opacity:0.7;
+  margin-bottom:20px;
+  min-height:20px;
+}
+
+/* PROGRESS */
+.progress{
+  width:100%;
+  height:6px;
+  background:rgba(255,255,255,0.1);
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#00ffe0;
+  transition:0.4s;
+}
+
+/* DOT ANIMATION */
+.dots::after{
+  content:"";
+  animation:dots 1.5s infinite;
+}
+
+@keyframes dots{
+  0%{content:"";}
+  33%{content:".";}
+  66%{content:"..";}
+  100%{content:"...";}
+}
+
+/* FOOTER */
+footer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  text-align:center;
+  padding:15px;
+  opacity:0.5;
+  font-size:0.85rem;
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* MOBILE OPTIMIZATION */
+@media(max-width:600px){
+  h1{font-size:1.4rem;}
+  .container{padding:20px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Sagar ✦</div>
+</header>
+
+<div class="main">
+  <div class="glow"></div>
+
+  <div class="container">
+    <h1>Verifying</h1>
+    <div class="status dots" id="status">Initializing</div>
+
+    <div class="progress">
+      <div class="progress-bar" id="bar"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  A visual memory archive by Sagar ✦ <br>
+© 2026 All rights reserved<br>
+</footer>
+
+<script>
+const statusText = document.getElementById("status");
+const bar = document.getElementById("bar");
+
+const steps = [
+  "Initializing",
+  "Checking session",
+  "Verifying identity",
+  "Syncing data",
+  "Finalizing"
+];
+
+let i = 0;
+let progress = 0;
+
+function update(){
+  if(i < steps.length){
+    statusText.innerText = steps[i];
+    i++;
+  }
+
+  progress += 20;
+  bar.style.width = progress + "%";
+}
+
+let interval = setInterval(update, 700);
+
+setTimeout(()=>{
+  clearInterval(interval);
+  statusText.innerText = "Redirecting...";
+  bar.style.width = "100%";
+
+  setTimeout(()=>{
+    window.location.href = "https://dub.sh/momentsinmotion";
+  }, 800);
+
+}, 4000);
+</script>
+
+</body>
+</html>

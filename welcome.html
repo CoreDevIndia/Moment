@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranav Sagar | Memories</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+/* ✅ ONLY FIX FOR HORIZONTAL SLIDE ISSUE */
+html, body{
+  overflow-x:hidden;
+  max-width:100%;
+}
+
+body{
+  background:#0a0a0a;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ===== HEADER SYSTEM ===== */
+:root{
+  --header-height:65px;
+}
+
+header{
+  height:var(--header-height);
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 25px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  z-index:1000;
+}
+
+.logo{font-weight:700;font-size:1.3rem;cursor:pointer;}
+.logo{
+  font-weight:700;
+  font-size:1.3rem;
+  cursor:pointer;
+  transition:0.25s ease;
+}
+
+.logo:hover{
+  color:#7cf7ff;
+  text-shadow:0 0 6px rgba(124,247,255,0.35);
+  transform:scale(1.03);
+}
+.menu-btn{font-size:1.5rem;cursor:pointer;}
+
+body{
+  padding-top:var(--header-height);
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;
+  top:var(--header-height);
+  right:-100%;
+  width:180px;
+  height:100vh;
+  background:rgba(0,0,0,0.95);
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  transition:0.3s;
+  z-index:999;
+}
+
+nav a{
+  margin:10px 0;
+  color:white;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+nav.active{right:0;}
+
+/* ===== HERO ===== */
+.hero{
+  height:calc(100vh - var(--header-height));
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:#000;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:blur(20px) brightness(0.5);
+  transform:scale(1.1);
+  z-index:1;
+  transition:0.3s;
+}
+
+.hero-main-img{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:2;
+}
+
+.hero-main-img img{
+  max-width:90%;
+  max-height:90%;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  z-index:2;
+}
+
+.hero-content{
+  position:relative;
+  z-index:3;
+}
+.hero-content p{
+  max-width:90%;
+  margin:0 auto;
+  text-align:center;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
+  line-height:1.4;
+}
+
+.hero h1{font-size:2rem;}
+.hero p{opacity:0.7;}
+
+/* hero slider buttons */
+.slider-btn{
+  position:absolute;
+  bottom:20px;
+  font-size:1.3rem;
+  padding:8px 12px;
+  background:rgba(0,0,0,0.4);
+  border-radius:50%;
+  cursor:pointer;
+  z-index:4;
+}
+
+.left{left:10px;}
+.right{right:10px;}
+
+/* ===== SECTIONS ===== */
+.section{
+  padding:80px 15px;
+  max-width:1000px;
+  margin:auto;
+}
+
+.section p{
+  opacity:0.6;
+  margin-bottom:15px;
+}
+
+/* ===== GRID SLIDER ===== */
+.grid{
+  position:relative;
+  overflow:hidden;
+}
+
+.grid-track{
+  display:flex;
+  transition:transform 0.5s ease;
+}
+
+.grid img{
+  min-width:100%;
+  height:400px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.slide-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,0.5);
+  border:none;
+  color:white;
+  font-size:1.3rem;
+  padding:6px 10px;
+  cursor:pointer;
+  border-radius:50%;
+  z-index:5;
+}
+
+.slide-btn.left{left:8px;}
+.slide-btn.right{right:8px;}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:30px;
+  opacity:0.6;
+}
+
+/* ===== MUSIC BUTTON ===== */
+.music-btn{
+  position:fixed;
+  bottom:90px;
+  right:18px;
+  padding:12px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  cursor:pointer;
+  z-index:10;
+  backdrop-filter:blur(6px);
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.lightbox img{
+  max-width:90%;
+  max-height:80%;
+}
+
+/* ===== DESKTOP ===== */
+@media(min-width:768px){
+  nav{
+    position:static;
+    flex-direction:row;
+    height:auto;
+    width:auto;
+    background:none;
+  }
+  nav a{margin:0 10px;}
+  .menu-btn{display:none;}
+  .hero h1{font-size:4rem;}
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+  .grid img{height:250px;}
+
+  .slider-btn{
+    font-size:1rem;
+    padding:6px 10px;
+    bottom:15px;
+  }
+
+  /* ✅ FIX MUSIC BUTTON POSITION ONLY */
+  .music-btn{
+    bottom:110px;
+    right:16px;
+  }
+}
+nav a{
+  position:relative;
+  transition:0.25s ease;
+}
+
+/* underline */
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0%;
+  height:1px;
+  background:#8aa8ff;
+  transition:0.25s ease;
+}
+
+/* hover state */
+nav a:hover{
+  color:#8aa8ff;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+@media(max-width:600px){
+
+  .hero{
+    height:calc(100vh - var(--header-height));
+  }
+
+  /* reduce image dominance but keep it centered */
+  .hero-main-img img{
+    max-width:85%;
+    max-height:55vh;
+  }
+  
+
+  /* MOVE TEXT BELOW IMAGE (real fix) */
+  .hero-content{
+    position:absolute;
+    top:auto;
+    bottom:560px;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    z-index:4;
+  }
+
+  .hero h1{
+    font-size:1.5rem;
+  }
+
+  .hero-content p{
+    font-size:0.9rem;
+    line-height:1.3;
+  }
+
+  .slider-btn{
+    bottom:10px;
+  }
+
+  /* optional: slightly dim image so text separation is clearer */
+  .hero-overlay{
+    display:block;
+  }
+}
+footer a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.25s ease;
+}
+
+footer a:hover {
+  color: #4fd1c5; /* softer highlight color */
+  transform: translateY(-2px) scale(1.05);
+  text-shadow: 0 2px 6px rgba(79, 209, 197, 0.4);
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo" id="logo">Sagar ✦</div>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <nav id="nav">
+    <a href="#Jaipur" onclick="goTo('jaipur')">Travel</a>
+    <a href="#Farewell" onclick="goTo('farewell')">Farewell</a>
+    <a href="#Night" onclick="goTo('night')">Night</a>
+    <a href="https://dub.sh/AuroraWeb/" onclick="goTo('')">Aurora</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg" id="hero-bg"></div>
+
+  <div class="hero-main-img">
+    <img id="hero-img">
+  </div>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1>Moments in Motion</h1>
+    <p>A visual archive of time - Curated by Pranav ✦</p>
+  </div>
+
+  <div class="slider-btn left" onclick="prevSlide()">❮</div>
+  <div class="slider-btn right" onclick="nextSlide()">❯</div>
+</section>
+
+<section class="section" id="jaipur">
+  <h2>Travel Memories</h2>
+  <p>A trip full of memories</p>
+
+  <div class="grid">
+    <button class="slide-btn left">❮</button>
+    <div class="grid-track">
+      <img src="images/mem1.png">
+      <img src="images/mem5.png">
+      <img src="images/mem6.png">
+    </div>
+    <button class="slide-btn right">❯</button>
+  </div>
+</section>
+
+<section class="section" id="farewell">
+  <h2>End of an Era - School Farewell</h2>
+  <p>End of school, start of chaos.</p>
+
+  <div class="grid">
+    <button class="slide-btn left">❮</button>
+    <div class="grid-track">
+      <img src="images/mem2.png">
+      <img src="images/mem4.png">
+      <img src="images/mem7.png">
+    </div>
+    <button class="slide-btn right">❯</button>
+  </div>
+</section>
+
+<section class="section" id="night">
+  <h2>Random Night</h2>
+  <p>No plan. No reason. Just vibes.</p>
+
+  <div class="grid">
+    <button class="slide-btn left">❮</button>
+    <div class="grid-track">
+      <img src="images/mem15.jpg">
+      <img src="images/mem16.jpg">
+      <img src="images/mem17.jpg">
+    </div>
+    <button class="slide-btn right">❯</button>
+  </div>
+</section>
+
+<footer>
+  A visual memory archive by 
+  <strong>
+    <a href="https://dub.sh/AuroraWeb/" target="">Sagar ✦</a>
+  </strong> <br> 
+  © 2026 All rights reserved <br>
+</footer>
+
+<audio id="music" loop>
+  <source src="music/lofi1.mp3" type="audio/mpeg">
+  <source src="music/lofi.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-btn" onclick="toggleMusic()">🎵</div>
+
+<div class="lightbox" id="lightbox">
+  <img id="lightbox-img">
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById('nav').classList.toggle('active');
+}
+
+function goTo(id){
+  const el=document.getElementById(id);
+  const offset=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'));
+  const top=el.getBoundingClientRect().top+window.pageYOffset-offset;
+  window.scrollTo({top,behavior:"smooth"});
+  document.getElementById('nav').classList.remove('active');
+}
+
+/* HERO SLIDER */
+const images=[
+  "images/mem11.jpg",
+  "images/mem12.jpg",
+  "images/mem10.jpg",
+  "images/mem14.jpg",
+  "images/mem9.jpg",
+  "images/mem13.jpg",
+  "images/mem1.jpg"
+];
+
+let i=0;
+const bg=document.getElementById('hero-bg');
+const heroImg=document.getElementById('hero-img');
+
+function showSlide(index){
+  bg.style.opacity=0;
+
+  setTimeout(()=>{
+    bg.style.backgroundImage=`url(${images[index]})`;
+    heroImg.src=images[index];
+    bg.style.opacity=1;
+  },200);
+}
+
+function nextSlide(){i=(i+1)%images.length;showSlide(i);}
+function prevSlide(){i=(i-1+images.length)%images.length;showSlide(i);}
+setInterval(nextSlide,4000);
+showSlide(i);
+
+/* GRID SLIDERS */
+document.querySelectorAll('.grid').forEach(grid=>{
+  const track=grid.querySelector('.grid-track');
+  let index=0;
+
+  function update(){
+    track.style.transform=`translateX(-${index*100}%)`;
+  }
+
+  grid.querySelector('.right').onclick=()=>{
+    index=(index+1)%track.children.length;
+    update();
+  };
+
+  grid.querySelector('.left').onclick=()=>{
+    index=(index-1+track.children.length)%track.children.length;
+    update();
+  };
+});
+
+/* MUSIC */
+let playing=false;
+const music=document.getElementById('music');
+
+function toggleMusic(){
+  if(!playing){
+    music.play();
+    playing=true;
+    document.querySelector('.music-btn').innerText="⏸";
+  }else{
+    music.pause();
+    playing=false;
+    document.querySelector('.music-btn').innerText="🎵";
+  }
+}
+
+/* LIGHTBOX */
+const lightbox=document.getElementById('lightbox');
+
+document.querySelectorAll('.grid img').forEach(img=>{
+  img.onclick=()=>{
+    lightbox.style.display='flex';
+    document.getElementById('lightbox-img').src=img.src;
+  };
+});
+
+lightbox.onclick=()=>{
+  lightbox.style.display='none';
+};
+let clickCount = 0;
+
+document.getElementById("logo").addEventListener("click", () => {
+  clickCount++;
+
+  if (clickCount === 5) {
+    window.location.href = "secret.html";
+  }
+
+  setTimeout(() => {
+    clickCount = 0;
+  }, 2000);
+});
+</script>
+
+</body>
+</html>
